@@ -1,0 +1,30 @@
+{
+    "name": "jkujawski/laravel-sare-mailer",
+    "description": "Creates new sare mail transport for laravel applications",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jakub Kujawski",
+            "email": "me@jakub.pro"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Jkujawski\\SareMailer\\": "src"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Jkujawski\\SareMailer\\ServiceProvider"
+            ]
+        }
+    },
+    "require": {
+        "php": "^7.0",
+        "illuminate/support": "5.5.*|5.6.*",
+        "illuminate/mail": "5.5.*|5.6.*"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
