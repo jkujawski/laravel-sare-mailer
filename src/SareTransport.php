@@ -48,7 +48,6 @@ class SareTransport extends Transport
             //  $ret = mail_send($email, $parametry, $contentHTML, $contentTXT);
             //
             $result = $this->client->Execute($script, false);
-            dd($result);
         } catch (SoapFault $fault) {
             trigger_error("SOAP Fault: (faultcode: {$fault->faultcode}, faultstring: {$fault->faultstring})", E_USER_ERROR);
         }

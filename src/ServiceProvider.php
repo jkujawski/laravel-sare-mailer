@@ -5,7 +5,7 @@ namespace Jkujawski\SareMailer;
 use Illuminate\Mail\MailServiceProvider;
 /**
  * Class ServiceProvider
- * 
+ *
  * @package Jkujawski\SareMailer
  */
 class ServiceProvider extends MailServiceProvider

@@ -1,6 +1,11 @@
 {
     "name": "jkujawski/laravel-sare-mailer",
     "description": "Creates new sare mail transport for laravel applications",
+    "keywords": [
+      "sare",
+      "mailer"
+    ],
+    "version": "0.1.0",
     "license": "MIT",
     "authors": [
         {
@@ -26,5 +31,5 @@
         "illuminate/mail": "5.5.*|5.6.*"
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": false
 }
