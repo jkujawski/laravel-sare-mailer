@@ -28,11 +28,13 @@ class SareTransport extends Transport
 
     public function send(Swift_Mime_SimpleMessage $message, &$failedRecipients = null)
     {
+        $from = $this->getFrom($message);
+
         try {
             $script = '
             <!--sare
                 $data["subject"] = "'.addslashes($message->getSubject()).'";
-                $data["from"] = "'.collect($message->getFrom())->keys()->first().'";
+                $data["from"] = \''.$from.'\';
                 $data["replyto"] = "'.collect($message->getReplyTo())->keys()->first().'";
                 $ret = mail_send("'.collect($message->getTo())->keys()->first().'", $data, "'.$this->inline(addslashes($message->getBody())).'");
                 if ($ret) {
@@ -51,6 +53,19 @@ class SareTransport extends Transport
         } catch (SoapFault $fault) {
             trigger_error("SOAP Fault: (faultcode: {$fault->faultcode}, faultstring: {$fault->faultstring})", E_USER_ERROR);
         }
+    }
+
+    /**
+     * Get the "from" payload field for the SOAP request.
+     *
+     * @param  \Swift_Mime_SimpleMessage  $message
+     * @return string
+     */
+    protected function getFrom(Swift_Mime_SimpleMessage $message)
+    {
+        return collect($message->getFrom())->map(function ($display, $address) {
+            return $display ? '"'.$display.'"'." <{$address}>" : $address;
+        })->values()->implode(',');
     }
 
     protected function inline($content)
