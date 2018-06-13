@@ -4,6 +4,7 @@ namespace Jkujawski\SareMailer;
 
 use Illuminate\Mail\Transport\Transport;
 use SoapClient;
+use SoapFault;
 use Swift_Mime_SimpleMessage;
 
 class SareTransport extends Transport
@@ -16,6 +17,8 @@ class SareTransport extends Transport
      */
     protected $client;
 
+    protected $loggedIn = false;
+
     /**
      * Create a new SareClient transport instance.
      *
@@ -26,8 +29,19 @@ class SareTransport extends Transport
         $this->client = $client;
     }
 
+    public function login()
+    {
+        if ( false === $this->loggedIn ) {
+            if ($this->client->Login()->login !== 1) {
+                throw new SoapFault('0000', 'Login failure');
+            }
+        }
+    }
+
     public function send(Swift_Mime_SimpleMessage $message, &$failedRecipients = null)
     {
+        $this->login();
+
         $from = $this->getFrom($message);
 
         try {
