@@ -26,10 +26,6 @@ class TransportManager extends BaseTransportManager
 
         $client = new SoapClient(config('saremailer.wsdl'), $config);
 
-        if ($client->Login()->login !== 1) {
-            throw new SoapFault('0000', 'Login failure');
-        }
-
         return new SareTransport(
             $client
         );
